@@ -54,6 +54,13 @@ clearButton.addEventListener("click", function() {
     display.textContent="0"; //This will be executed when the clear button is clicked
 });
 
+//'Backspace' Backspace operator //you can add when the string is empty to display 0
+const backspaceButton = document.querySelector("#backspace");
+backspaceButton.addEventListener("click", function() {
+    inputConcat = inputConcat.slice(0,-1);
+    display.textContent=inputConcat;
+});
+
 //'+' Add operator
 const addOperator = document.querySelector("#add");
 addOperator.addEventListener("click", function() {
@@ -200,3 +207,97 @@ displayZero.addEventListener("click", function() {
 
 //when operator is clicked firstNumber will be stored 
 //when secondNumber is clicked and Equal operator is clicked it calls operate()
+
+//Read Input from keyboard
+//1. reading numbers 0 - 10 //fix 0 that is being kept when others numbers a read
+document.addEventListener("keydown", function(event) {
+    if (event.key >= "0" && event.key <= "9") {
+        inputConcat += event.key;
+        display.textContent = inputConcat;
+    }
+});
+
+//2. clear
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Backspace") {
+        inputConcat = inputConcat.slice(0,-1);
+        display.textContent=inputConcat;
+    }
+});
+//3. Add
+document.addEventListener("keydown", function(event) {
+    if (event.key === "+") {
+        firstNumber = parseFloat(display.textContent);   
+        operator = '+';
+        inputConcat="";   
+        isDotUsed=false; 
+        display.textContent = "";
+    }
+});
+//4. Subtract
+document.addEventListener("keydown", function(event) {
+    if (event.key === "-") {
+        firstNumber = parseFloat(display.textContent);   
+        operator = '-';
+        inputConcat="";   
+        isDotUsed=false; 
+        display.textContent = "";
+    }
+});
+//5. Divide
+document.addEventListener("keydown", function(event) {
+    if (event.key === "/") {
+        firstNumber = parseFloat(display.textContent);   
+        operator = '/';
+        inputConcat="";   
+        isDotUsed=false; 
+        display.textContent = "";
+    }
+});
+//6. Multiply
+document.addEventListener("keydown", function(event) {
+    if (event.key === "*") {
+        firstNumber = parseFloat(display.textContent);   
+        operator = '*';
+        inputConcat="";   
+        isDotUsed=false; 
+        display.textContent = "";
+    }
+});
+
+//7. Equal
+document.addEventListener("keydown", function(event) {
+    if (event.key === "=" || event.key === "Enter") {
+        secondNumber = parseFloat(display.textContent);  
+        result = Operate(firstNumber, secondNumber, operator); //result calls operate()
+        isDotUsed=false;
+        display.textContent = result;
+    }
+});
+
+//8. Minus (positive-negative)---------------------------------------------------------------------------------------
+document.addEventListener("keydown", function(event) {
+    if (event.key === "-") {
+        secondNumber = parseFloat(display.textContent);  
+        result = Operate(firstNumber, secondNumber, operator); //result calls operate()
+        isDotUsed=false;
+        display.textContent = result;
+    }
+});
+//9. Percent
+document.addEventListener("keydown", function(event) {
+    if (event.key === "%" ) {
+        firstNumber = parseFloat(display.textContent);   
+        display.textContent = firstNumber/100;
+    }
+});
+//10. dot
+document.addEventListener("keydown", function(event) {
+    if (event.key === ".") {
+        if(!isDotUsed){
+            inputConcat = inputConcat+".";
+            isDotUsed=true;
+        } 
+        display.textContent = inputConcat;
+    }
+});
