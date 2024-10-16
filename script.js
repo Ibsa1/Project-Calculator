@@ -38,6 +38,7 @@ let operator=0;
 let secondNumber=0;
 let result=0;
 let inputConcat=""; //to accept concatenate Inputs for first & second Number
+let isDotUsed=false;
 
 //Listening to the button clicks
 const display = document.querySelector('.display');
@@ -49,6 +50,7 @@ clearButton.addEventListener("click", function() {
     secondNumber=0;
     result=0;
     inputConcat="";
+    isDotUsed=false;
     display.textContent="0"; //This will be executed when the clear button is clicked
 });
 
@@ -57,7 +59,8 @@ const addOperator = document.querySelector("#add");
 addOperator.addEventListener("click", function() {
     firstNumber = parseFloat(display.textContent);   
     operator = '+';
-    inputConcat="";    
+    inputConcat="";   
+    isDotUsed=false; 
     display.textContent = "";
 })
 
@@ -67,6 +70,7 @@ subtractOperator.addEventListener("click", function() {
     firstNumber = parseFloat(display.textContent);   
     operator = '-';
     inputConcat="";    
+    isDotUsed=false;
     display.textContent = "";
 })
 
@@ -75,7 +79,8 @@ const divideOperator = document.querySelector("#divide");
 divideOperator.addEventListener("click", function() {
     firstNumber = parseFloat(display.textContent);   
     operator = '/';
-    inputConcat="";    
+    inputConcat="";  
+    isDotUsed=false;  
     display.textContent = "";
 })
 
@@ -85,6 +90,7 @@ multiplyOperator.addEventListener("click", function() {
     firstNumber = parseFloat(display.textContent);   
     operator = '*';
     inputConcat="";    
+    isDotUsed=false;
     display.textContent = "";
 })
 
@@ -93,6 +99,7 @@ const equalOperator = document.querySelector("#equal");
 equalOperator.addEventListener("click", function() {
     secondNumber = parseFloat(display.textContent);  
     result = Operate(firstNumber, secondNumber, operator); //result calls operate()
+    isDotUsed=false;
     display.textContent = result;
 })
 
@@ -114,7 +121,10 @@ percentOperator.addEventListener("click", function() {
 //'.' dot operator 
 const displayDot = document.querySelector("#dot");
 displayDot.addEventListener("click", function() {
-    inputConcat = inputConcat+".";
+    if(!isDotUsed){
+        inputConcat = inputConcat+".";
+        isDotUsed=true;
+    } 
     display.textContent = inputConcat;
 })
 
