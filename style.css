@@ -54,12 +54,13 @@ body{
 .footer{
     margin-top: 50px;
 }
-#zero,#one,#two,#three,#four,#five,#six,#seven,#eight,#nine{
+#zero,#one,#two,#three,#four,#five,#six,#seven,#eight,#nine,{
     background-color: lightgray;
 }
+/*
 #dot, #backspace{
     background-color: lightcoral;
-}
-#clear, #positive-negative, #percent, #divide, #multiply, #subtract, #add, #equal{
+}*/
+#clear, #positive-negative, #percent, #divide, #multiply, #subtract, #add, #equal,#dot, #backspace{
     background-color: rgb(223, 167, 121);
 }
