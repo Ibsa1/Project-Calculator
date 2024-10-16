@@ -1,5 +1,6 @@
 body{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: larger;
@@ -47,4 +48,7 @@ body{
 }
 #zero{
     width: 50%;
+}
+.footer{
+    margin-top: 50px;
 }
