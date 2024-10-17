@@ -33,8 +33,8 @@ function Operate(a,b,operator){
     }
 }
 
-let firstNumber=0; //maybe it was local variable
-let operator=0;
+let firstNumber=0;
+let operator=null;
 let secondNumber=0;
 let result=0;
 let inputConcat=""; //to accept concatenate Inputs for first & second Number
@@ -48,21 +48,21 @@ const display = document.querySelector('.display');
 const clearButton = document.querySelector("#clear");
 clearButton.addEventListener("click", function() {
     firstNumber=0;
+    operator=null;
     secondNumber=0;
     result=0;
     inputConcat="";
     isDotUsed=false;
     isEqualClicked=false;
-    //console.log(isDotUsed);
-    //console.log(inputConcat);
-    //console.log(firstNumber);
-    //console.log(secondNumber);
-    //console.log(result);
-    //console.log(operator);
 
-    display.textContent=result; //This will be executed when the clear button is clicked
+    console.log("isDotUsed "+isDotUsed);
+    console.log("firstNumber "+firstNumber);
+    console.log("inputConcat "+inputConcat);
+    console.log("operator "+ operator);
+    console.log("isEqualClicked "+isEqualClicked);
+    console.log("secondNumber "+secondNumber)
 
-
+    display.textContent= "0"; //This will be executed when the clear button is clicked
 });
 
 //'Backspace' Backspace operator //you can add when the string is empty to display 0
@@ -79,7 +79,9 @@ addOperator.addEventListener("click", function() {
     operator = '+';
     inputConcat="";   
     isDotUsed=false; 
-    display.textContent = "";
+    display.textContent = operator;
+    isEqualClicked=false;
+
 })
 
 //'-' Subtract operator
@@ -89,7 +91,8 @@ subtractOperator.addEventListener("click", function() {
     operator = '-';
     inputConcat="";    
     isDotUsed=false;
-    display.textContent = "";
+    display.textContent = operator;
+    isEqualClicked=false;
 })
 
 //'/' Divide operator
@@ -99,7 +102,8 @@ divideOperator.addEventListener("click", function() {
     operator = '/';
     inputConcat="";  
     isDotUsed=false;  
-    display.textContent = "";
+    display.textContent = operator;
+    isEqualClicked=false;
 })
 
 //'*' Multiply operator
@@ -109,7 +113,8 @@ multiplyOperator.addEventListener("click", function() {
     operator = '*';
     inputConcat="";    
     isDotUsed=false;
-    display.textContent = "";
+    display.textContent = operator;
+    isEqualClicked=false;
 })
 
 //'=' Equal operator
@@ -117,14 +122,21 @@ const equalOperator = document.querySelector("#equal");
 equalOperator.addEventListener("click", function() {
 
     secondNumber = parseFloat(display.textContent); 
+    
     if(!isEqualClicked || result !== secondNumber){ //to make sure Equal for one operation works for only one + continue other operation
         result = Operate(firstNumber, secondNumber, operator); //result calls operate()
     }
-    result = result*1;
-    
+    else{
+        result = result*1;
+    }
+    firstNumber=0;
+    operator=null;
+    inputConcat="";
     isDotUsed=false;
     isEqualClicked=true;
     display.textContent = result;
+    secondNumber=0;
+    console.log(secondNumber);
 })
 
 //'+/-' positive-negative operator -------------------------------------------------------------------------------------
@@ -222,6 +234,7 @@ displayZero.addEventListener("click", function() {
     display.textContent = inputConcat;
 })
 
+
 //when operator is clicked firstNumber will be stored 
 //when secondNumber is clicked and Equal operator is clicked it calls operate()
 
@@ -248,7 +261,8 @@ document.addEventListener("keydown", function(event) {
         operator = '+';
         inputConcat="";   
         isDotUsed=false; 
-        display.textContent = "";
+        display.textContent = operator;
+        isEqualClicked=false;
     }
 });
 //4. Subtract
@@ -258,7 +272,8 @@ document.addEventListener("keydown", function(event) {
         operator = '-';
         inputConcat="";   
         isDotUsed=false; 
-        display.textContent = "";
+        display.textContent = operator;
+        isEqualClicked=false;
     }
 });
 //5. Divide
@@ -268,7 +283,8 @@ document.addEventListener("keydown", function(event) {
         operator = '/';
         inputConcat="";   
         isDotUsed=false; 
-        display.textContent = "";
+        display.textContent = operator;
+        isEqualClicked=false;
     }
 });
 //6. Multiply
@@ -278,7 +294,8 @@ document.addEventListener("keydown", function(event) {
         operator = '*';
         inputConcat="";   
         isDotUsed=false; 
-        display.textContent = "";
+        display.textContent = operator;
+        isEqualClicked=false;
     }
 });
 
@@ -286,27 +303,32 @@ document.addEventListener("keydown", function(event) {
 document.addEventListener("keydown", function(event) {
     if (event.key === "=" || event.key === "Enter") {
         secondNumber = parseFloat(display.textContent); 
+        
         if(!isEqualClicked || result !== secondNumber){ //to make sure Equal for one operation works for only one + continue other operation
             result = Operate(firstNumber, secondNumber, operator); //result calls operate()
         }
-        result = result*1;
-        
+        else{
+            result = result*1;
+        }
         isDotUsed=false;
+        firstNumber=0;
+        inputConcat="";
+        operator=null;
         isEqualClicked=true;
+        secondNumber=0;
         display.textContent = result;
+        
+
+        console.log("isDotUsed "+isDotUsed);
+        console.log("firstNumber "+firstNumber);
+        console.log("inputConcat "+inputConcat);
+        console.log("operator "+ operator);
+        console.log("isEqualClicked "+isEqualClicked);
+        console.log("secondNumber "+secondNumber)
     }
 });
-/* //This is creating confusion with subtracct
-//8. Minus (positive-negative)---------------------------------------------------------------------------------------
-document.addEventListener("keydown", function(event) {
-    if (event.key === "-") {
-        secondNumber = parseFloat(display.textContent);  
-        result = Operate(firstNumber, secondNumber, operator); //result calls operate()
-        isDotUsed=false;
-        display.textContent = result;
-    }
-});
-*/ 
+//positive-negative no keydown even because of confusion with '-' operator
+
 //9. Percent
 document.addEventListener("keydown", function(event) {
     if (event.key === "%" ) {
