@@ -39,6 +39,7 @@ let secondNumber=0;
 let result=0;
 let inputConcat=""; //to accept concatenate Inputs for first & second Number
 let isDotUsed=false;
+let isEqualClicked=false;
 
 //Listening to the button clicks
 const display = document.querySelector('.display');
@@ -51,7 +52,17 @@ clearButton.addEventListener("click", function() {
     result=0;
     inputConcat="";
     isDotUsed=false;
-    display.textContent="0"; //This will be executed when the clear button is clicked
+    isEqualClicked=false;
+    //console.log(isDotUsed);
+    //console.log(inputConcat);
+    //console.log(firstNumber);
+    //console.log(secondNumber);
+    //console.log(result);
+    //console.log(operator);
+
+    display.textContent=result; //This will be executed when the clear button is clicked
+
+
 });
 
 //'Backspace' Backspace operator //you can add when the string is empty to display 0
@@ -104,9 +115,15 @@ multiplyOperator.addEventListener("click", function() {
 //'=' Equal operator
 const equalOperator = document.querySelector("#equal");
 equalOperator.addEventListener("click", function() {
-    secondNumber = parseFloat(display.textContent);  
-    result = Operate(firstNumber, secondNumber, operator); //result calls operate()
+
+    secondNumber = parseFloat(display.textContent); 
+    if(!isEqualClicked || result !== secondNumber){ //to make sure Equal for one operation works for only one + continue other operation
+        result = Operate(firstNumber, secondNumber, operator); //result calls operate()
+    }
+    result = result*1;
+    
     isDotUsed=false;
+    isEqualClicked=true;
     display.textContent = result;
 })
 
@@ -217,7 +234,7 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-//2. clear
+//2. Delete one by one
 document.addEventListener("keydown", function(event) {
     if (event.key === "Backspace") {
         inputConcat = inputConcat.slice(0,-1);
@@ -265,16 +282,21 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-//7. Equal
+//7. Equal using Enter
 document.addEventListener("keydown", function(event) {
     if (event.key === "=" || event.key === "Enter") {
-        secondNumber = parseFloat(display.textContent);  
-        result = Operate(firstNumber, secondNumber, operator); //result calls operate()
+        secondNumber = parseFloat(display.textContent); 
+        if(!isEqualClicked || result !== secondNumber){ //to make sure Equal for one operation works for only one + continue other operation
+            result = Operate(firstNumber, secondNumber, operator); //result calls operate()
+        }
+        result = result*1;
+        
         isDotUsed=false;
+        isEqualClicked=true;
         display.textContent = result;
     }
 });
-
+/* //This is creating confusion with subtracct
 //8. Minus (positive-negative)---------------------------------------------------------------------------------------
 document.addEventListener("keydown", function(event) {
     if (event.key === "-") {
@@ -284,6 +306,7 @@ document.addEventListener("keydown", function(event) {
         display.textContent = result;
     }
 });
+*/ 
 //9. Percent
 document.addEventListener("keydown", function(event) {
     if (event.key === "%" ) {
